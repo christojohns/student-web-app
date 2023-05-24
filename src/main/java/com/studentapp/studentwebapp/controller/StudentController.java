@@ -1,38 +1,29 @@
 package com.studentapp.studentwebapp.controller;
 
-import java.util.List;
+import com.studentapp.studentwebapp.model.Student;
+import com.studentapp.studentwebapp.services.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import com.studentapp.studentwebapp.model.Student;
-import com.studentapp.studentwebapp.repository.StudentRepository;
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
 public class StudentController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    public StudentService studentService;
 
     @GetMapping("/all")
-    public List<Student> getAll() {
-        List<Student> students = studentRepository.findAll();
-        return students;
+    public ResponseEntity<List<Student>> getAllStudents() {
+        return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.OK);
     }
 
-    @PutMapping
-    public void insert(@RequestBody Student student) {
-        studentRepository.insert(student);
-    }
-
-    @PostMapping
-    public void update(@RequestBody Student student) {
-        studentRepository.save(student);
+    @PostMapping("/add")
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+        return new ResponseEntity<>(studentService.createStudent(student), HttpStatus.CREATED);
     }
 }
