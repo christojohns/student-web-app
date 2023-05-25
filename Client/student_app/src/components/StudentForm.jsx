@@ -101,10 +101,10 @@ export default function StudentForm(props) {
                         onChange={handleInputChange}
                         labelId="class-selector"
                         label="Class"
-                        value={""}
+                        defaultValue=""
                     >
                         {classOptions.map((item) => (
-                            <MenuItem key={item} value={item.value}>{item.key}</MenuItem>
+                            <MenuItem key={item.value} value={item.value}>{item.key}</MenuItem>
                         ))}
                     </Select>
                     <InputLabel htmlFor="divison-selector">Division:</InputLabel>
@@ -115,7 +115,7 @@ export default function StudentForm(props) {
                         onChange={handleInputChange}
                         labelId="divison-selector"
                         label="Class"
-                        value={""}
+                        defaultValue=""
                     >
                         {divisionOptions.map((item) => (
                             <MenuItem key={item} value={item}>{item}</MenuItem>
