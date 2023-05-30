@@ -46,7 +46,14 @@ public class StudentServiceImpl implements StudentService {
             DecimalFormat decimalFormat = new DecimalFormat("000");
             return ("R-" + decimalFormat.format(newSequenceNumber));
         } catch (Exception e) {
-            throw new NullPointerException("Sequnce Data is not availale");
+            System.out.println("No Sequence Data Available" + e);
+            Sequence sequenceNumber = new Sequence();
+            Integer newSequenceNumber = 1;
+            sequenceNumber.setSequenceId(newSequenceNumber);
+            sequenceNumber.setType("RollNo");
+            idGeneratorRepository.save(sequenceNumber);
+            DecimalFormat decimalFormat = new DecimalFormat("000");
+            return ("R-" + decimalFormat.format(newSequenceNumber));
         }
     }
 
